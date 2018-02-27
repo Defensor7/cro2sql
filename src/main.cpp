@@ -57,7 +57,7 @@ int main(int argc, const char * argv[])
   string data_separator = "|";
   bool silent = false;
 
-  // Обрабатываем пользовательские опции и входные данные (к 19.01.209)
+  // РћР±СЂР°Р±Р°С‚С‹РІР°РµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРµ РѕРїС†РёРё Рё РІС…РѕРґРЅС‹Рµ РґР°РЅРЅС‹Рµ (Рє 19.01.209)
   COptionsManager * OptionManager = COptionsManager::Instance();
   OptionManager->register_option('c', "config", COptionsManager::REQUIRED_ARGUMENT);
   OptionManager->register_option('d', "delimiter", COptionsManager::REQUIRED_ARGUMENT);
@@ -132,7 +132,7 @@ int main(int argc, const char * argv[])
   if( !silent )
 
 
-  // Все переменные должны быть инициализированы после разбора опций
+  // Р’СЃРµ РїРµСЂРµРјРµРЅРЅС‹Рµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅС‹ РїРѕСЃР»Рµ СЂР°Р·Р±РѕСЂР° РѕРїС†РёР№
   if( data_separator.empty() || export_path.empty() || structure_path.empty() || sql_path.empty())
   {
     cerr << GetErrorMsg(E_OPT) << endl;
@@ -152,7 +152,7 @@ int main(int argc, const char * argv[])
   string date_type  = "DATE";
   string time_type = "TIME";
 
-  // Проверяем правильность путей файлов
+  // РџСЂРѕРІРµСЂСЏРµРј РїСЂР°РІРёР»СЊРЅРѕСЃС‚СЊ РїСѓС‚РµР№ С„Р°Р№Р»РѕРІ
   if( !(file_mode( structure_path ) & S_IFREG) || !(file_mode( sql_path ) & S_IFDIR) || !(file_mode( export_path ) & S_IFDIR) || (!sql_path.empty() && !(file_mode( sql_path ) & S_IFDIR)) )
   {
     cerr << GetErrorMsg(E_FILE_NOT_FOUND) << endl;
@@ -220,7 +220,7 @@ int main(int argc, const char * argv[])
       fw.open((sql_path + "/" + i->table->sql_name + ".sql").c_str());
       if(fw.bad())
       {
-        cerr << GetErrorMsg( (string)W_PREFIX + "Невозможно открыть файл \""+ i->table->sql_name +"\".") << endl;
+        cerr << GetErrorMsg( (string)W_PREFIX + "РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» \""+ i->table->sql_name +"\".") << endl;
         continue;
       }
     }
@@ -229,7 +229,7 @@ int main(int argc, const char * argv[])
       fw.open((sql_path + "/" + i->reference->sql_name + ".sql").c_str());
       if(fw.bad())
       {
-        cerr << GetErrorMsg( (string)W_PREFIX + "Невозможно открыть файл \""+ i->reference->sql_name +"\".") << endl;
+        cerr << GetErrorMsg( (string)W_PREFIX + "РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» \""+ i->reference->sql_name +"\".") << endl;
         continue;
       }
     }
@@ -335,7 +335,7 @@ int main(int argc, const char * argv[])
   }
   ofstream ddl_file((sql_path + "/index-ddl.sql").c_str());
   if( ddl_file.bad() )
-    cerr << GetErrorMsg( (string)W_PREFIX + "Невозможно открыть файл \""+ sql_path + "/index-ddl.sql" +"\".") << endl;
+    cerr << GetErrorMsg( (string)W_PREFIX + "РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» \""+ sql_path + "/index-ddl.sql" +"\".") << endl;
   else
     ddl_file << db.generate_DDL();
   ddl_file.close();

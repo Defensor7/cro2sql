@@ -107,7 +107,7 @@ bool COptionsManager::_test_long_optname(string str)
   return true;
 }
 
-// тестирует имена опций и, если все ок, заполняет option и добаляет имена в индексы поиска
+// С‚РµСЃС‚РёСЂСѓРµС‚ РёРјРµРЅР° РѕРїС†РёР№ Рё, РµСЃР»Рё РІСЃРµ РѕРє, Р·Р°РїРѕР»РЅСЏРµС‚ option Рё РґРѕР±Р°Р»СЏРµС‚ РёРјРµРЅР° РІ РёРЅРґРµРєСЃС‹ РїРѕРёСЃРєР°
 void COptionsManager::_test_set_names(const char short_name, const string &long_name, const string &description, TOption &option)
 {
   /* SHORT_NAME PROCESSING */
@@ -192,7 +192,7 @@ int COptionsManager::getopt(int argc, const char * argv[])
   if( argv[argc] != NULL )
     throw parce_error("Arguments count argc not submited with argv.");
 
-  // Просмотрели ли все опции
+  // РџСЂРѕСЃРјРѕС‚СЂРµР»Рё Р»Рё РІСЃРµ РѕРїС†РёРё
   if(_cursor >= argc)
   {
     _reminder.clear();
@@ -213,31 +213,31 @@ int COptionsManager::getopt(int argc, const char * argv[])
   if( length == 0)
     throw parce_error("One of the argv elements is empty.");
 
-  //Если длина аргумента меньше 2 или аргмент не начинается с "-", он не может быть опцией
+  //Р•СЃР»Рё РґР»РёРЅР° Р°СЂРіСѓРјРµРЅС‚Р° РјРµРЅСЊС€Рµ 2 РёР»Рё Р°СЂРіРјРµРЅС‚ РЅРµ РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃ "-", РѕРЅ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕРїС†РёРµР№
   if( length < 2 || _reminder[0] != '-')
   {
     _reminder.clear();
     return '?';
   }
 
-  // Кандидат на короткую опцию
+  // РљР°РЅРґРёРґР°С‚ РЅР° РєРѕСЂРѕС‚РєСѓСЋ РѕРїС†РёСЋ
   if( _is_alpha(_reminder[1]) && is_registered(_reminder[1]) && !(_posix_W && _reminder[1] == 'W'))
   {
-    // Выставляем итератор option на соответствующую опцию
+    // Р’С‹СЃС‚Р°РІР»СЏРµРј РёС‚РµСЂР°С‚РѕСЂ option РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰СѓСЋ РѕРїС†РёСЋ
     for( option = options.begin(); option != options.end(); option++)
     {
       if( option->short_name == _reminder[1] )
       {
         if( option->argument_type == NO_ARGUMENT )
         {
-          // Если у опции не должно быть аргументов, но после ее имени следует не имя опции, то ошибка в аргументах опции
+          // Р•СЃР»Рё Сѓ РѕРїС†РёРё РЅРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ Р°СЂРіСѓРјРµРЅС‚РѕРІ, РЅРѕ РїРѕСЃР»Рµ РµРµ РёРјРµРЅРё СЃР»РµРґСѓРµС‚ РЅРµ РёРјСЏ РѕРїС†РёРё, С‚Рѕ РѕС€РёР±РєР° РІ Р°СЂРіСѓРјРµРЅС‚Р°С… РѕРїС†РёРё
           if ( length > 2 )
             if ( !is_registered(_reminder[2]) )
             {
               _reminder.clear();
               return ':';
             }
-          // Если длина = 2 или длина > 2 и _reminder[2] - опция
+          // Р•СЃР»Рё РґР»РёРЅР° = 2 РёР»Рё РґР»РёРЅР° > 2 Рё _reminder[2] - РѕРїС†РёСЏ
           _reminder = _reminder.substr(0,1) + _reminder.substr(2, length);
           if(_reminder == "-")
             _reminder.clear();
@@ -274,7 +274,7 @@ int COptionsManager::getopt(int argc, const char * argv[])
           }
           else
           {
-            // Следующий элемент argv[] - аргументы нашей опции, поэтому расширяем _reminder на argv[_cursor+1] и запускаем getopt заново. Он пойдет по тому же пути, что и этот (так как начало _reminder осталось неизменным, за исключением строки if(length > 2))
+            // РЎР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚ argv[] - Р°СЂРіСѓРјРµРЅС‚С‹ РЅР°С€РµР№ РѕРїС†РёРё, РїРѕСЌС‚РѕРјСѓ СЂР°СЃС€РёСЂСЏРµРј _reminder РЅР° argv[_cursor+1] Рё Р·Р°РїСѓСЃРєР°РµРј getopt Р·Р°РЅРѕРІРѕ. РћРЅ РїРѕР№РґРµС‚ РїРѕ С‚РѕРјСѓ Р¶Рµ РїСѓС‚Рё, С‡С‚Рѕ Рё СЌС‚РѕС‚ (С‚Р°Рє РєР°Рє РЅР°С‡Р°Р»Рѕ _reminder РѕСЃС‚Р°Р»РѕСЃСЊ РЅРµРёР·РјРµРЅРЅС‹Рј, Р·Р° РёСЃРєР»СЋС‡РµРЅРёРµРј СЃС‚СЂРѕРєРё if(length > 2))
             _reminder += argv[_cursor+1];
             _cursor++;
             return getopt(argc, argv);
@@ -282,13 +282,13 @@ int COptionsManager::getopt(int argc, const char * argv[])
         }
       }//for _cursor
     }
-    // Если мы так и не нашли соответствующий объект вектора, то произошел какой-то сбой в is_registered, register_option или в цикле выше
+    // Р•СЃР»Рё РјС‹ С‚Р°Рє Рё РЅРµ РЅР°С€Р»Рё СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ РѕР±СЉРµРєС‚ РІРµРєС‚РѕСЂР°, С‚Рѕ РїСЂРѕРёР·РѕС€РµР» РєР°РєРѕР№-С‚Рѕ СЃР±РѕР№ РІ is_registered, register_option РёР»Рё РІ С†РёРєР»Рµ РІС‹С€Рµ
     throw getopt_error("Internal error. Cursor for oprion \""+(string)&_reminder[1]+"\" was not set.");
   }
-  // Кандидат на длинную опцию
+  // РљР°РЅРґРёРґР°С‚ РЅР° РґР»РёРЅРЅСѓСЋ РѕРїС†РёСЋ
   if( _reminder[1] == '-' || (_posix_W && _reminder[1] == 'W') )
   {
-    //Если длина аргумента, начинающегося с "-", меньше 3 или третий символ - не буква, то данный аргумент не может быть опцией
+    //Р•СЃР»Рё РґР»РёРЅР° Р°СЂРіСѓРјРµРЅС‚Р°, РЅР°С‡РёРЅР°СЋС‰РµРіРѕСЃСЏ СЃ "-", РјРµРЅСЊС€Рµ 3 РёР»Рё С‚СЂРµС‚РёР№ СЃРёРјРІРѕР» - РЅРµ Р±СѓРєРІР°, С‚Рѕ РґР°РЅРЅС‹Р№ Р°СЂРіСѓРјРµРЅС‚ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕРїС†РёРµР№
     if( length < 3 || !_is_alpha(_reminder[2]) )
     {
       _reminder.clear();
@@ -308,7 +308,7 @@ int COptionsManager::getopt(int argc, const char * argv[])
       return '?';
     }
 
-    // выставляем курсор
+    // РІС‹СЃС‚Р°РІР»СЏРµРј РєСѓСЂСЃРѕСЂ
     for( option = options.begin(); option != options.end(); option++)
     {
       if( option->long_name == opt_candidate )
@@ -368,11 +368,11 @@ int COptionsManager::getopt(int argc, const char * argv[])
         }
       }
     }
-    // Если мы так и не нашли соответствующий объект вектора, то произошел какой-то сбой в is_registered, register_option или в цикле выше
+    // Р•СЃР»Рё РјС‹ С‚Р°Рє Рё РЅРµ РЅР°С€Р»Рё СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ РѕР±СЉРµРєС‚ РІРµРєС‚РѕСЂР°, С‚Рѕ РїСЂРѕРёР·РѕС€РµР» РєР°РєРѕР№-С‚Рѕ СЃР±РѕР№ РІ is_registered, register_option РёР»Рё РІ С†РёРєР»Рµ РІС‹С€Рµ
     throw getopt_error("Internal error. Cursor for oprion \""+(string)&_reminder[1]+"\" was not set.");
   }
 
-  // Если символ, идущий за "-" - не буква и не символ "-", то аргумент недействительная опция
+  // Р•СЃР»Рё СЃРёРјРІРѕР», РёРґСѓС‰РёР№ Р·Р° "-" - РЅРµ Р±СѓРєРІР° Рё РЅРµ СЃРёРјРІРѕР» "-", С‚Рѕ Р°СЂРіСѓРјРµРЅС‚ РЅРµРґРµР№СЃС‚РІРёС‚РµР»СЊРЅР°СЏ РѕРїС†РёСЏ
   _reminder.clear();
   return '?';
 }

@@ -1,7 +1,7 @@
 /******************************************************************************
 ProjectName: cro2sql
 FileName: dataparser.h 20080110
-Subj: Определяет класс разборщика файлов-данных
+Subj: РћРїСЂРµРґРµР»СЏРµС‚ РєР»Р°СЃСЃ СЂР°Р·Р±РѕСЂС‰РёРєР° С„Р°Р№Р»РѕРІ-РґР°РЅРЅС‹С…
 Author: Nosov Yuri
 *******************************************************************************
   (c) Copyright 2008 Nosov Yuri (cro2sql@gmail.com)
@@ -68,10 +68,10 @@ public:
   void clear_warnings();
   int use_file(std::vector<SDataFile>::iterator data_file);
   std::string parse_next_line();
-  // Возвращает тип данных, которому может соответствовать данная строка
+  // Р’РѕР·РІСЂР°С‰Р°РµС‚ С‚РёРї РґР°РЅРЅС‹С…, РєРѕС‚РѕСЂРѕРјСѓ РјРѕР¶РµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґР°РЅРЅР°СЏ СЃС‚СЂРѕРєР°
   std::string get_data_type(std::string data);
   std::string fetch_field_data(std::string, CField *);
-  // Основные типы данных конкретной реализации SQL
+  // РћСЃРЅРѕРІРЅС‹Рµ С‚РёРїС‹ РґР°РЅРЅС‹С… РєРѕРЅРєСЂРµС‚РЅРѕР№ СЂРµР°Р»РёР·Р°С†РёРё SQL
   std::vector<SDataFile> data_files;
   double processed_size;
   double data_size;
